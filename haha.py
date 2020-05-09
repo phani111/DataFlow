@@ -1,8 +1,23 @@
+# import apache_beam as beam
+# from apache_beam.options.pipeline_options import PipelineOptions
+#
+#
+# pipeline_options = PipelineOptions()
+# with beam.Pipeline(options=pipeline_options) as pipeline:
+#   lines = (
+#       pipeline
+#       | beam.Create([
+#           'To be, or not to be: that is the question: ',
+#           "Whether 'tis nobler in the mind to suffer ",
+#           'The slings and arrows of outrageous fortune, ',
+#           'Or to take arms against a sea of troubles, ',
+#       ]))
+
 import apache_beam as beam
 import argparse
 from apache_beam.options.pipeline_options import PipelineOptions, SetupOptions, GoogleCloudOptions
 
-from join import Join
+from demos.join.join import Join
 import random
 from apache_beam.io.avroio import WriteToAvro
 
@@ -51,9 +66,20 @@ def run(argv=None):
 
     save_main_session = True
     pipeline_options.view_as(SetupOptions).save_main_session = save_main_session
-    print(pipeline_args)
 
+    # SCHEMA_STRING = '''
+    # {"namespace": "example.avro",
+    # "type": "record",
+    # "name": "User",
+    # "fields": [
+    #     {"name": "ACNO", "type": "int"},
+    #     {"name": "PRIN_BAL", "type": "int"},
+    #     {"name": "FEE_ANT", "default": null, "type": ["null", "double"]},
+    #     {"name": "GENDER",  "default": null, "type": ["null", {"logicalType": "char", "type": "string", "maxLength": 1}]}
 
+    # ]
+    # }
+    # '''
 
     SCHEMA = {"namespace": "example.avro",
               "type": "record",
@@ -66,6 +92,11 @@ def run(argv=None):
               ]
               }
 
+    # {"name": "GENDER', "type": "string"}
+
+    # {"name": "FEE_ANT", "type": "long"}
+
+    # p = beam.Pipeline(options=pipeline_options)
     rec_cnt = known_args.records
     with beam.Pipeline(options=pipeline_options) as p:
         left_pcol_name = 'p1'
@@ -73,8 +104,8 @@ def run(argv=None):
         p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"]})
         p2 = file | beam.Map(lambda x: {'ACNO': x['ACNO'], 'FIELD_2': x["FIELD_2"]})
 
-        # P1_1 = p1 | "write" >> beam.io.WriteToText('./data.csv')
-        # P2_2 = p2 | "write2" >> beam.io.WriteToText('./data2.csv')
+        P1_1 = p1 | "write" >> beam.io.WriteToText('./data.csv')
+        P2_2 = p2 | "write2" >> beam.io.WriteToText('./data2.csv')
 
         right_pcol_name = 'p2'
 
@@ -101,6 +132,9 @@ def run(argv=None):
 
         test_pipeline | 'write_fastavro' >> WriteToAvro(
             known_args.output,
+            # '/tmp/dataflow/{}/{}'.format(
+            #     'demo', 'output'),
+            # parse_schema(json.loads(SCHEMA_STRING)),
             parse_schema(SCHEMA),
             use_fastavro=use_fastavro,
             file_name_suffix='.avro',
