@@ -8,7 +8,6 @@ appdevops-sa@mvp-project-273913.gserviceaccount.com
 2. download the keys as gcp.json
 3. run
 
-
 ```bash
 pip install 'apache-beam[gcp]' -i https://pypi.douban.com/simple
 pip install six==1.14.0 -i https://pypi.douban.com/simple
