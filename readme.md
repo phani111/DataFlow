@@ -9,9 +9,9 @@ appdevops-sa@mvp-project-273913.gserviceaccount.com
 3. run
 
 ```bash
-pip install 'apache-beam[gcp]'
-pip install six==1.14.0
-pip install --upgrade google-cloud-storage
+pip install 'apache-beam[gcp]' -i https://pypi.douban.com/simple
+pip install six==1.14.0 -i https://pypi.douban.com/simple
+pip install --upgrade google-cloud-storage -i https://pypi.douban.com/simple
 
 gcloud components update beta
 ```
