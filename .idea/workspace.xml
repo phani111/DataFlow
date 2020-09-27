@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a3ceddc5-345d-4d8c-897a-72aebdee18cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Untitled.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataflow-mvp.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataflow-mvp.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,18 +12,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/local.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="71" column="91" selection-start-line="71" selection-start-column="58" selection-end-line="71" selection-end-column="91" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
@@ -104,8 +90,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dataflow-mvp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2340">
+            <state relative-caret-position="-838">
               <caret line="160" column="31" selection-start-line="160" selection-start-column="31" selection-end-line="160" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/dataflow-bk.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="494">
+              <caret line="180" column="56" lean-forward="true" selection-start-line="180" selection-start-column="45" selection-end-line="180" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -136,17 +131,17 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/local.py" />
         <option value="$PROJECT_DIR$/dataflow.py" />
         <option value="$PROJECT_DIR$/tryspark.py" />
         <option value="$PROJECT_DIR$/WordCount.py" />
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/dataflow-mvp.py" />
+        <option value="$PROJECT_DIR$/local.py" />
+        <option value="$PROJECT_DIR$/dataflow-bk.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="430" />
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
@@ -156,6 +151,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -167,7 +163,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -350,6 +345,7 @@
       <workItem from="1601031582433" duration="2842000" />
       <workItem from="1601035680805" duration="259000" />
       <workItem from="1601049387525" duration="290000" />
+      <workItem from="1601171046177" duration="607000" />
     </task>
     <task id="LOCAL-00001" summary="updated dataflow- mvp">
       <created>1601032266288</created>
@@ -358,17 +354,38 @@
       <option name="project" value="LOCAL" />
       <updated>1601032266288</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="updated dataflow- mvp">
+      <created>1601171116195</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1601171116195</updated>
+    </task>
+    <task id="LOCAL-00003" summary="updated dataflow- mvp">
+      <created>1601171276962</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1601171276962</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated dataflow- mvp">
+      <created>1601171518156</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1601171518156</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="20715000" />
+    <option name="totallyTimeSpent" value="21322000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1146" height="877" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19565217" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15736766" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -382,7 +399,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.4488189" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.23097113" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -445,8 +462,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/local.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="71" column="91" selection-start-line="71" selection-start-column="58" selection-end-line="71" selection-end-column="91" />
+        <state relative-caret-position="262">
+          <caret line="18" column="18" lean-forward="true" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -514,8 +531,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dataflow-mvp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2340">
+        <state relative-caret-position="-838">
           <caret line="160" column="31" selection-start-line="160" selection-start-column="31" selection-end-line="160" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataflow-bk.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="494">
+          <caret line="180" column="56" lean-forward="true" selection-start-line="180" selection-start-column="45" selection-end-line="180" selection-end-column="56" />
         </state>
       </provider>
     </entry>
