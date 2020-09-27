@@ -3,11 +3,12 @@ import argparse
 from apache_beam.options.pipeline_options import PipelineOptions, SetupOptions,StandardOptions
 import random
 from apache_beam.io.avroio import WriteToAvro
+from avro.schema import parse
 
-try:
-    from avro.schema import parse  # avro-python3 library for python3
-except ImportError:
-    from avro.schema import parse as Parse  # avro library for python2
+# try:
+#     from avro.schema import parse  # avro-python3 library for python3
+# except ImportError:
+#     from avro.schema import parse as Parse  # avro library for python2
 
 from fastavro import parse_schema
 # import json
@@ -176,7 +177,7 @@ def run(argv=None):
     """Main entry point"""
     parser = argparse.ArgumentParser()
     parser.add_argument('--project', default='query-11',type=str, required=False, help='project')
-    parser.add_argument('--job_name', default='Basel3', type=str)
+    parser.add_argument('--job_name', default='basel3', type=str)
     parser.add_argument('--temp_location', default='gs://dataflow_s/tmp')
     parser.add_argument('--region', default='us-central1')
     parser.add_argument('--staging_location', default='gs://dataflow_s/stage')
