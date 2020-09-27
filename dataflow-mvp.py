@@ -175,11 +175,11 @@ class UnnestOuterJoin(beam.DoFn):
 def run(argv=None):
     """Main entry point"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--project', default='query-11',type=str, required=False, help='project')
-    parser.add_argument('--job_name', default='haha', type=str)
-    parser.add_argument('--temp_location', default='gs://dataflow_s/tmp')
+    parser.add_argument('--project', default='mvp-project',type=str, required=False, help='project')
+    parser.add_argument('--job_name', default='gcp', type=str)
+    parser.add_argument('--temp_location', default='gs://zz_michael/dataflow_s/tmp')
     parser.add_argument('--region', default='us-central1')
-    parser.add_argument('--staging_location', default='gs://dataflow_s/stage')
+    parser.add_argument('--staging_location', default='gs://zz_michael/dataflow_s/stage')
     parser.add_argument(
         '--records',
         dest='records',
@@ -187,8 +187,8 @@ def run(argv=None):
         # default='gs://dataflow-samples/shakespeare/kinglear.txt',
         default='10',  # gsutil cp gs://dataflow-samples/shakespeare/kinglear.txt
         help='Number of records to be generate')
-    parser.add_argument('--output',required=False,default='gs://dataflow_s/RPM/account_id_schema_output.avro',help='Output file to write results to.')
-    parser.add_argument('--input',default='gs://dataflow_s/RPM/account_id_schema_new.avro',help='input file to write results to.')
+    parser.add_argument('--output',required=False,default='gs://zz_michael/dataflow_s/RPM/account_id_schema_output.avro',help='Output file to write results to.')
+    parser.add_argument('--input',default='gs://zz_michael/dataflow_s/RPM/account_id_schema_new.avro',help='input file to write results to.')
     # Parse arguments from the command line.
     # known_args, pipeline_args = parser.parse_known_args(argv)
     args = parser.parse_args()
@@ -222,7 +222,7 @@ def run(argv=None):
     rec_cnt = args.records
     with beam.Pipeline(options=options) as p:
         left_pcol_name = 'p1'
-        file = p | 'read_source' >> beam.io.ReadFromAvro('gs://dataflow_s/RPM/account_id_schema_new.avro')
+        file = p | 'read_source' >> beam.io.ReadFromAvro('gs://zz_michael/dataflow_s/RPM/account_id_schema_new.avro')
         p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"]})
         p2 = file | beam.Map(lambda x: {'ACNO': x['ACNO'], 'FIELD_2': x["FIELD_2"]})
 
