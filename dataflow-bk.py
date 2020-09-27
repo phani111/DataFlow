@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 
 
-dataflow_options = ['--project=query-11','--job_name=amaz','--temp_location=gs://dataflow_s/tmp','--region=asia-east2']
+dataflow_options = ['--project=query-11','--job_name=amaz','--temp_location=gs://dataflow_s/tmp','--region=us-central1']
 dataflow_options.append('--staging_location=gs://dataflow_s/stage')
 options = PipelineOptions(dataflow_options)
 gcloud_options = options.view_as(GoogleCloudOptions)
@@ -178,7 +178,7 @@ def run(argv=None):
     parser.add_argument('--project', default='query-11',type=str, required=False, help='project')
     parser.add_argument('--job_name', default='haha', type=str)
     parser.add_argument('--temp_location', default='gs://dataflow_s/tmp')
-    parser.add_argument('--region', default='asia-east2')
+    parser.add_argument('--region', default='us-central1')
     parser.add_argument('--staging_location', default='gs://dataflow_s/stage')
     parser.add_argument(
         '--records',
