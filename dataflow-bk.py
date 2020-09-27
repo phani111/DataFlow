@@ -176,7 +176,7 @@ def run(argv=None):
     """Main entry point"""
     parser = argparse.ArgumentParser()
     parser.add_argument('--project', default='query-11',type=str, required=False, help='project')
-    parser.add_argument('--job_name', default='haha', type=str)
+    parser.add_argument('--job_name', default='Basel3', type=str)
     parser.add_argument('--temp_location', default='gs://dataflow_s/tmp')
     parser.add_argument('--region', default='us-central1')
     parser.add_argument('--staging_location', default='gs://dataflow_s/stage')
