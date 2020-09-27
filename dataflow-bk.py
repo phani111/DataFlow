@@ -5,7 +5,7 @@ import random
 from apache_beam.io.avroio import WriteToAvro
 
 try:
-    from avro.schema import Parse  # avro-python3 library for python3
+    from avro.schema import parse  # avro-python3 library for python3
 except ImportError:
     from avro.schema import parse as Parse  # avro library for python2
 
@@ -214,8 +214,15 @@ def run(argv=None):
               "fields": [
                   {"name": "ACNO", "type": ["null", {"logicalType": "char", "type": "string", "maxLength": 20}]},
                   {"name": "FIELD_1", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_2", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]}
-
+                  {"name": "FIELD_2", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_3", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_4", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_5", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_6", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_7", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_8", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_9", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_10", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]}
               ]
               }
 
