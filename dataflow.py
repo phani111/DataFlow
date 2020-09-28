@@ -180,6 +180,7 @@ def run(argv=None):
     parser.add_argument('--temp_location', default='gs://dataflow_s/tmp')
     parser.add_argument('--region', default='us-central1')
     parser.add_argument('--staging_location', default='gs://dataflow_s/stage')
+    parser.add_argument('--runner', default='DataflowRunner')
     parser.add_argument(
         '--records',
         dest='records',
@@ -193,7 +194,7 @@ def run(argv=None):
     # known_args, pipeline_args = parser.parse_known_args(argv)
     args = parser.parse_args()
 
-    dataflow_options = ['--project=%s'%(args.project), '--job_name=%s'%(args.job_name), '--temp_location=%s'%(args.temp_location),
+    dataflow_options = ['--project=%s'%(args.project), '--job_name=%s'%(args.job_name), '--temp_location=%s'%(args.temp_location),'--runner=%s'%(args.runner),
                         '--region=%s'%(args.region)]
 
     dataflow_options.append('--staging_location=%s'%(args.staging_location))
