@@ -193,13 +193,13 @@ def run(argv=None):
     # known_args, pipeline_args = parser.parse_known_args(argv)
     args = parser.parse_args()
 
-    dataflow_options = ['--project=%s'%(args.project), '--job_name=%s'%(args.job_name), '--temp_location=%s'%(args.temp_location),
+    dataflow_options = ['--project=%s'%(args.project), '--job_name=%s'%(args.job_name), '--temp_location=%s'%(args.temp_location),'--worker_machine_type=n1-standard-4',
                         '--region=%s'%(args.region)]
 
     dataflow_options.append('--staging_location=%s'%(args.staging_location))
     options = PipelineOptions(dataflow_options)
     gcloud_options = options.view_as(GoogleCloudOptions)
-    #
+
     options.view_as(StandardOptions).runner = "dataflow"
 
     input_filename = args.input
@@ -229,7 +229,7 @@ def run(argv=None):
     rec_cnt = args.records
     with beam.Pipeline(options=options) as p:
         left_pcol_name = 'p1'
-        file = p | 'read_source' >> beam.io.ReadFromAvro('gs://zz_michael/dataflow_s/RPM/account_id_schema_test.avro')
+        file = p | 'read_source' >> beam.io.ReadFromAvro(args.input)
         p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"]})
         p2 = file | beam.Map(lambda x: {'ACNO': x['ACNO'], 'FIELD_2': x["FIELD_2"]})
 
