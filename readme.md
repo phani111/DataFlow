@@ -39,6 +39,18 @@ buckets = list(storage_client.list_buckets())
 print(buckets)
 
 
+pip3 install --upgrade virtualenv     --user
+gcloud auth list
+python3 -m virtualenv env
+source env/bin/activate
+pip3 install --quiet apache-beam[gcp]
+gsutil mb gs://mvp-project-273913
+gsutil cp gs://zz_michael/dataflow_s/dataflow-mvp.py .
+python dataflow-mvp.py 
+source env/bin/activate
+python dataflow-mvp.py 
+
+
 
 
 ## [SSR](https://qhh.me/2018/04/14/%E9%85%8D%E7%BD%AE-gcloud-%E4%BD%BF%E7%94%A8-Shadowsocks-HTTP-%E4%BB%A3%E7%90%86/)

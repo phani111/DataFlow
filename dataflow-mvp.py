@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 
 
-dataflow_options = ['--project=mvp-project-273913-273913','--job_name=gcp','--temp_location=gs://zz_michael/dataflow_s/tmp','--region=us-central1']
+dataflow_options = ['--project=mvp-project-273913','--job_name=gcp','--temp_location=gs://zz_michael/dataflow_s/tmp','--region=us-central1']
 dataflow_options.append('--staging_location=gs://zz_michael/dataflow_s/stage')
 options = PipelineOptions(dataflow_options)
 gcloud_options = options.view_as(GoogleCloudOptions)
@@ -175,7 +175,7 @@ class UnnestOuterJoin(beam.DoFn):
 def run(argv=None):
     """Main entry point"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--project', default='mvp-project-273913-273913',type=str, required=False, help='project')
+    parser.add_argument('--project', default='mvp-project-273913',type=str, required=False, help='project')
     parser.add_argument('--job_name', default='gcp', type=str)
     parser.add_argument('--temp_location', default='gs://zz_michael/dataflow_s/tmp')
     parser.add_argument('--region', default='us-central1')
