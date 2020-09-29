@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a3ceddc5-345d-4d8c-897a-72aebdee18cd" name="Default Changelist" comment="updated dataflow- mvp">
+    <list default="true" id="a3ceddc5-345d-4d8c-897a-72aebdee18cd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dataflow-mvp.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataflow-mvp.py" afterDir="false" />
     </list>
@@ -16,8 +16,20 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/dataflow-mvp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="317">
-              <caret line="189" column="64" selection-start-line="189" selection-start-column="64" selection-end-line="189" selection-end-column="64" />
+            <state relative-caret-position="229">
+              <caret line="231" column="105" selection-start-line="231" selection-start-column="58" selection-end-line="231" selection-end-column="105" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/readme.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor relative-caret-position="458">
+                <caret line="50" selection-start-line="50" selection-end-line="50" selection-end-column="23" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
@@ -60,11 +72,13 @@
       <find>beam</find>
       <find>gs://dataflow_s</find>
       <find>python2</find>
+      <find>mvp-project-273913</find>
     </findStrings>
     <replaceStrings>
       <replace>mvp-project</replace>
       <replace>gs://zz_michael/dataflow_s/tmp</replace>
       <replace>gs://zz_michael/dataflow_s</replace>
+      <replace>asia-east1</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -75,10 +89,10 @@
       <list>
         <option value="$PROJECT_DIR$/tryspark.py" />
         <option value="$PROJECT_DIR$/WordCount.py" />
-        <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/local.py" />
         <option value="$PROJECT_DIR$/dataflow-bk.py" />
         <option value="$PROJECT_DIR$/dataflow.py" />
+        <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/dataflow-mvp.py" />
       </list>
     </option>
@@ -288,7 +302,7 @@
       <workItem from="1601035680805" duration="259000" />
       <workItem from="1601049387525" duration="290000" />
       <workItem from="1601171046177" duration="7176000" />
-      <workItem from="1601348776605" duration="594000" />
+      <workItem from="1601348776605" duration="1863000" />
     </task>
     <task id="LOCAL-00001" summary="updated dataflow- mvp">
       <created>1601032266288</created>
@@ -360,11 +374,25 @@
       <option name="project" value="LOCAL" />
       <updated>1601301046784</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="updated dataflow- mvp">
+      <created>1601350442938</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1601350442938</updated>
+    </task>
+    <task id="LOCAL-00012" summary="updated dataflow- mvp">
+      <created>1601351133678</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1601351133678</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="28485000" />
+    <option name="totallyTimeSpent" value="29754000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
@@ -498,16 +526,6 @@
     <entry file="file://$PROJECT_DIR$/Untitled.ipynb">
       <provider selected="true" editor-type-id="jupyter-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="357">
-            <caret line="141" column="31" selection-start-line="141" selection-start-column="31" selection-end-line="141" selection-end-column="31" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/dataflow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1664">
@@ -528,10 +546,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="458">
+            <caret line="50" selection-start-line="50" selection-end-line="50" selection-end-column="23" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/dataflow-mvp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="189" column="64" selection-start-line="189" selection-start-column="64" selection-end-line="189" selection-end-column="64" />
+        <state relative-caret-position="229">
+          <caret line="231" column="105" selection-start-line="231" selection-start-column="58" selection-end-line="231" selection-end-column="105" />
         </state>
       </provider>
     </entry>
