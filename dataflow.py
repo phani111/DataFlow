@@ -190,6 +190,8 @@ def run(argv=None):
         help='Number of records to be generate')
     parser.add_argument('--output',required=False,default='gs://dataflow_s/RPM/account_id_schema_output.avro',help='Output file to write results to.')
     parser.add_argument('--input',default='gs://dataflow_s/RPM/account_id_schema_new.avro',help='input file to write results to.')
+    parser.add_argument('--output_table', default='gs://dataflow_s/RPM/account_id_schema_new.avro',
+                        help='input file to write results to.')
     # Parse arguments from the command line.
     # known_args, pipeline_args = parser.parse_known_args(argv)
     args = parser.parse_args()
@@ -252,13 +254,11 @@ def run(argv=None):
         use_fastavro = True
         #
 
-        test_pipeline | 'write_fastavro' >> WriteToAvro(
-            args.output,
-            parse_schema(SCHEMA),
-            use_fastavro=use_fastavro,
-            file_name_suffix='.avro',
-            codec=('deflate' if compressIdc else 'null'),
-        )
+        test_pipeline | 'Write' >> beam.io.WriteToBigQuery(
+            args.output_table,
+            schema=SCHEMA,
+            create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
+            write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND)
     result = p.run()
     result.wait_until_finish()
 
