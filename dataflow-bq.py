@@ -234,7 +234,7 @@ def run(argv=None):
     rec_cnt = args.records
     with beam.Pipeline(options=options) as p:
         left_pcol_name = 'p1'
-        file = p | 'read_source' >> beam.io.ReadFromAvro('gs://dataflow_s/RPM/account_id_schema_new.avro')
+        file = p | 'read_source' >> beam.io.ReadFromAvro(args.input)
         p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"]})
         p2 = file | beam.Map(lambda x: {'ACNO': x['ACNO'], 'FIELD_2': x["FIELD_2"]})
 
@@ -273,12 +273,13 @@ def run(argv=None):
             }]
         }
 
-        test_pipeline | beam.io.WriteToBigQuery(
-                table_spec,
-                schema=table_schema,
-                write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,
-                create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED)
-
+        test_pipeline | 'write_fastavro' >> WriteToAvro(
+            args.output,
+            parse_schema(SCHEMA),
+            use_fastavro=use_fastavro,
+            file_name_suffix='.avro',
+            codec=('deflate' if compressIdc else 'null'),
+        )
     result = p.run()
     result.wait_until_finish()
 

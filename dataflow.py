@@ -254,11 +254,13 @@ def run(argv=None):
         use_fastavro = True
         #
 
-        test_pipeline | 'Write' >> beam.io.WriteToBigQuery(
-            args.output_table,
-            schema=SCHEMA,
-            create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED,
-            write_disposition=beam.io.BigQueryDisposition.WRITE_APPEND)
+        test_pipeline | 'write_fastavro' >> WriteToAvro(
+            args.output,
+            parse_schema(SCHEMA),
+            use_fastavro=use_fastavro,
+            file_name_suffix='.avro',
+            codec=('deflate' if compressIdc else 'null'),
+        )
     result = p.run()
     result.wait_until_finish()
 
