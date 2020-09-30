@@ -259,8 +259,8 @@ def run(argv=None):
                                                                    join_type='left', join_keys=join_keys)
         print(type(test_pipeline))
 
-        compressIdc = True
-        use_fastavro = True
+        # compressIdc = True
+        # use_fastavro = True
         #
 
         table_schema = {
@@ -273,11 +273,7 @@ def run(argv=None):
             }]
         }
 
-        test_pipeline | beam.io.WriteToBigQuery(
-                table_spec,
-                schema=table_schema,
-                write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,
-                create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED)
+        test_pipeline | beam.io.WriteToBigQuery(table_spec,schema=table_schema,write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE, create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED)
 
     result = p.run()
     result.wait_until_finish()
