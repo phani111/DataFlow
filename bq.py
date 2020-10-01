@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 table_spec = bigquery.TableReference(
     projectId='query-11',
     datasetId='rpm',
-    tableId='new-haha')
+    tableId='nana')
 
 dataflow_options = ['--project=query-11','--job_name=amaz','--temp_location=gs://dataflow_s/tmp','--region=us-central1']
 dataflow_options.append('--staging_location=gs://dataflow_s/stage')
@@ -43,9 +43,12 @@ table_schema = {
 
 
 with beam.Pipeline(options=options) as p:
-    quotes = p | 'read_source' >> beam.io.ReadFromAvro('gs://dataflow_s/RPM/account_id_schema_new.avro')
+    quotes = p | beam.Create([
+        {'ACNO': 'Mahatma Gandhi', 'FIELD_1': '20','FIELD_2': '30','FIELD_3': '60.','FIELD_4': '50','FIELD_5': '70','FIELD_6': '90','FIELD_7': '77','FIELD_8': '99','FIELD_9': '44','FIELD_10': '20'},
+        {'ACNO': 'Mahatma Gandhi', 'FIELD_1': '11','FIELD_2': '44','FIELD_3': '60.','FIELD_4': '50','FIELD_5': '70','FIELD_6': '90','FIELD_7': '77','FIELD_8': '99','FIELD_9': '44','FIELD_10': '20'},
+    ])
 
-    quotes | beam.io.WriteToBigQuery(
+    quotes | 'write' >> beam.io.WriteToBigQuery(
         table_spec,
         schema=table_schema,
         write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,
