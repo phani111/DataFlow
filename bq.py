@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 table_spec = bigquery.TableReference(
     projectId='query-11',
     datasetId='rpm',
-    tableId='ahaha')
+    tableId='new-haha')
 
 dataflow_options = ['--project=query-11','--job_name=amaz','--temp_location=gs://dataflow_s/tmp','--region=us-central1']
 dataflow_options.append('--staging_location=gs://dataflow_s/stage')
