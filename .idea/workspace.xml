@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3ceddc5-345d-4d8c-897a-72aebdee18cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataflow-mvp.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataflow-mvp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bq.py" beforeDir="false" afterPath="$PROJECT_DIR$/bq.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dataflow-bq.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataflow-bq.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,11 +13,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dataflow-mvp.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="403">
-              <caret line="207" column="56" selection-start-line="207" selection-start-column="56" selection-end-line="207" selection-end-column="56" />
+            <state relative-caret-position="89">
+              <caret line="200" column="116" selection-start-line="200" selection-start-column="69" selection-end-line="200" selection-end-column="116" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -25,23 +25,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dataflow-bq.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="39">
-              <caret line="176" selection-start-line="176" selection-end-line="205" selection-end-column="56" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="12">
-              <caret line="36" column="17" lean-forward="true" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
+            <state relative-caret-position="269">
+              <caret line="41" column="30" lean-forward="true" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="30" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
               </folding>
@@ -68,8 +56,9 @@
       <find>test_pipeline</find>
       <find>options</find>
       <find>table_spec</find>
-      <find>left join</find>
       <find>query-11</find>
+      <find>left join</find>
+      <find>worker_node</find>
     </findStrings>
     <replaceStrings>
       <replace>mvp-project</replace>
@@ -94,15 +83,15 @@
         <option value="$PROJECT_DIR$/Readme.md" />
         <option value="$PROJECT_DIR$/dataflow-mvp-bq.py" />
         <option value="$PROJECT_DIR$/dataflow.py" />
+        <option value="$PROJECT_DIR$/dataflow-mvp.py" />
         <option value="$PROJECT_DIR$/dataflow-bq.py" />
         <option value="$PROJECT_DIR$/bq.py" />
-        <option value="$PROJECT_DIR$/dataflow-mvp.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="116" />
-    <option name="y" value="23" />
+    <option name="x" value="131" />
+    <option name="y" value="34" />
     <option name="width" value="1440" />
     <option name="height" value="877" />
   </component>
@@ -313,7 +302,7 @@
       <workItem from="1601361278287" duration="4938000" />
       <workItem from="1601446344630" duration="3334000" />
       <workItem from="1601450939768" duration="220000" />
-      <workItem from="1601473244215" duration="16486000" />
+      <workItem from="1601473244215" duration="17572000" />
     </task>
     <task id="LOCAL-00001" summary="updated dataflow- mvp">
       <created>1601032266288</created>
@@ -546,14 +535,21 @@
       <option name="project" value="LOCAL" />
       <updated>1601529616852</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="updated dataflow- mvp">
+      <created>1601529679498</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1601529679498</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55739000" />
+    <option name="totallyTimeSpent" value="56825000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="623" y="24" width="1440" height="877" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17167382" />
@@ -731,15 +727,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bq-cp.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="44" column="5" lean-forward="true" selection-start-line="44" selection-start-column="5" selection-end-line="44" selection-end-column="5" />
+        <state relative-caret-position="195">
+          <caret line="22" column="21" lean-forward="true" selection-start-line="22" selection-start-column="21" selection-end-line="22" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/dataflow-bq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="176" selection-start-line="176" selection-end-line="205" selection-end-column="56" />
+        <state relative-caret-position="135">
+          <caret line="221" column="28" selection-start-line="221" selection-start-column="28" selection-end-line="221" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataflow-mvp.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="200" column="116" selection-start-line="200" selection-start-column="69" selection-end-line="200" selection-end-column="116" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -748,20 +754,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="12">
-          <caret line="36" column="17" lean-forward="true" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
+        <state relative-caret-position="269">
+          <caret line="41" column="30" lean-forward="true" selection-start-line="41" selection-start-column="30" selection-end-line="41" selection-end-column="30" />
           <folding>
             <element signature="e#0#56#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dataflow-mvp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="403">
-          <caret line="207" column="56" selection-start-line="207" selection-start-column="56" selection-end-line="207" selection-end-column="56" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>

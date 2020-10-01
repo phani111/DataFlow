@@ -34,7 +34,7 @@ def run():
     parser.add_argument('--runner', default='DataflowRunner')
     parser.add_argument('--datasetid', default='michael')
     parser.add_argument('--output',required=False,default='gs://dataflow_s/RPM/account_id_schema_output.avro',help='Output file to write results to.')
-    parser.add_argument('--input',default='gs://dataflow_s/RPM/account_id_schema_new.avro',help='input file to write results to.')
+    parser.add_argument('--input',default='account_id_schema_960W',help='input file to write results to.')
     parser.add_argument('--output_table', default='account_id_schema_new',
                         help='input file to write results to.')
     # Parse arguments from the command line.
@@ -56,7 +56,7 @@ def run():
     table_spec = bigquery.TableReference(
         projectId=args.project,
         datasetId=args.datasetid,
-        tableId=args.output_table)
+        tableId=args.input)
 
     table_schema = {
         'fields': [
