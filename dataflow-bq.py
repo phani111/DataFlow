@@ -213,30 +213,22 @@ def run(argv=None):
         datasetId='rpm',
         tableId='account_id_schema_new')
 
-    SCHEMA = {"namespace": "example.avro",
-              "type": "record",
-              "name": "User",
-              "fields": [
-                  {"name": "ACNO", "type": ["null", {"logicalType": "char", "type": "string", "maxLength": 20}]},
-                  {"name": "FIELD_1", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_2", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_3", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_4", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_5", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_6", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_7", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_8", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_9", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_10", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]}
-              ]
-              }
+    table_schema = {
+        'fields': [{
+            'name': 'ACNO', 'type': 'STRING', 'mode': 'NULLABLE'
+        }, {
+            'name': 'FIELD_1', 'type': 'STRING', 'mode': 'REQUIRED'
+        },{
+            'name': 'FIELD_1', 'type': 'STRING', 'mode': 'REQUIRED'
+        }]
+    }
 
     rec_cnt = args.records
     with beam.Pipeline(options=options) as p:
         left_pcol_name = 'p1'
-        file = p | 'read_source' >> beam.io.ReadFromAvro(args.input)
-        p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"],'FIELD_2':x["FIELD_2"],'FIELD_3':x["FIELD_3"],'FIELD_4':x["FIELD_4"],'FIELD_5':x["FIELD_5"],'FIELD_6':x["FIELD_6"],'FIELD_7':x["FIELD_7"],'FIELD_8':x["FIELD_8"],'FIELD_9':x["FIELD_9"],'FIELD_10':x["FIELD_10"]})
-        p2 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"],'FIELD_2':x["FIELD_2"],'FIELD_3':x["FIELD_3"],'FIELD_4':x["FIELD_4"],'FIELD_5':x["FIELD_5"],'FIELD_6':x["FIELD_6"],'FIELD_7':x["FIELD_7"],'FIELD_8':x["FIELD_8"],'FIELD_9':x["FIELD_9"],'FIELD_10':x["FIELD_10"]})
+        file = p | 'read_source' >> beam.io.ReadFromAvro('gs://dataflow_s/RPM/account_id_schema_new.avro')
+        p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"]})
+        p2 = file | beam.Map(lambda x: {'ACNO': x['ACNO'], 'FIELD_2': x["FIELD_2"]})
 
         # P1_1 = p1 | "write" >> beam.io.WriteToText('./data.csv')
         # P2_2 = p2 | "write2" >> beam.io.WriteToText('./data2.csv')
@@ -259,27 +251,15 @@ def run(argv=None):
                                                                    join_type='left', join_keys=join_keys)
         print(type(test_pipeline))
 
-        # compressIdc = True
-        # use_fastavro = True
+        compressIdc = True
+        use_fastavro = True
         #
 
-        table_schema = {
-            'fields': [
-                {'name': 'ACNO', 'type': 'STRING', 'mode': 'NULLABLE'},
-                {'name': 'FIELD_1', 'type': 'STRING', 'mode': 'NULLABLE'},
-                {'name': 'FIELD_2', 'type': 'STRING', 'mode': 'NULLABLE'},
-                {'name': 'FIELD_3', 'type': 'STRING', 'mode': 'NULLABLE'},
-                {'name': 'FIELD_4', 'type': 'STRING', 'mode': 'NULLABLE'},
-                {'name': 'FIELD_5', 'type': 'STRING', 'mode': 'NULLABLE'},
-                {'name': 'FIELD_6', 'type': 'STRING', 'mode': 'NULLABLE'},
-                {'name': 'FIELD_7', 'type': 'STRING', 'mode': 'NULLABLE'},
-                {'name': 'FIELD_8', 'type': 'STRING', 'mode': 'NULLABLE'},
-                {'name': 'FIELD_9', 'type': 'STRING', 'mode': 'NULLABLE'},
-                {'name': 'FIELD_10', 'type': 'STRING', 'mode': 'NULLABLE'},
-            ]
-        }
-
-        test_pipeline | beam.io.WriteToBigQuery(table_spec,schema=table_schema,write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE, create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED)
+        test_pipeline | beam.io.WriteToBigQuery(
+                table_spec,
+                schema=SCHEMA,
+                write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,
+                create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED)
 
     result = p.run()
     result.wait_until_finish()

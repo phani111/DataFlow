@@ -31,31 +31,32 @@ def run():
     parser.add_argument('--temp_location', default='gs://zz_michael/dataflow_s/tmp')
     parser.add_argument('--region', default='asia-east1')
     parser.add_argument('--staging_location', default='gs://zz_michael/dataflow_s/stage')
-    parser.add_argument(
-        '--records',
-        dest='records',
-        type=int,
-        # default='gs://dataflow-samples/shakespeare/kinglear.txt',
-        default='10',  # gsutil cp gs://dataflow-samples/shakespeare/kinglear.txt
-        help='Number of records to be generate')
-    parser.add_argument('--output', required=False,
-                        default='gs://zz_michael/dataflow_s/RPM/output/account_id_schema_output.avro',
-                        help='Output file to write results to.')
-    parser.add_argument('--input', default='gs://zz_michael/dataflow_s/RPM/account_id_schema_960W.avro',
+    parser.add_argument('--runner', default='DataflowRunner')
+    parser.add_argument('--datasetid', default='michael')
+    parser.add_argument('--output',required=False,default='gs://dataflow_s/RPM/account_id_schema_output.avro',help='Output file to write results to.')
+    parser.add_argument('--input',default='gs://dataflow_s/RPM/account_id_schema_new.avro',help='input file to write results to.')
+    parser.add_argument('--output_table', default='account_id_schema_new',
                         help='input file to write results to.')
     # Parse arguments from the command line.
     # known_args, pipeline_args = parser.parse_known_args(argv)
     args = parser.parse_args()
 
-    dataflow_options = ['--project=%s' % (args.project), '--job_name=%s' % (args.job_name),
-                        '--temp_location=%s' % (args.temp_location), '--worker_machine_type=%s' % (args.worker_node),
-                        '--region=%s' % (args.region)]
+    dataflow_options = ['--project=%s'%(args.project), '--job_name=%s'%(args.job_name), '--temp_location=%s'%(args.temp_location),'--worker_machine_type=%s' % (args.worker_node),'--runner=%s'%(args.runner),
+                        '--region=%s'%(args.region)]
 
-    dataflow_options.append('--staging_location=%s' % (args.staging_location))
+    dataflow_options.append('--staging_location=%s'%(args.staging_location))
     options = PipelineOptions(dataflow_options)
     gcloud_options = options.view_as(GoogleCloudOptions)
-
+    #
     options.view_as(StandardOptions).runner = "dataflow"
+
+    input_filename = args.input
+    output_filename = args.output
+
+    table_spec = bigquery.TableReference(
+        projectId=args.project,
+        datasetId=args.datasetid,
+        tableId=args.output_table)
 
     table_schema = {
         'fields': [
