@@ -264,13 +264,19 @@ def run(argv=None):
         #
 
         table_schema = {
-            'fields': [{
-                'name': 'ACNO', 'type': 'STRING', 'mode': 'NULLABLE'
-            }, {
-                'name': 'FIELD_1', 'type': 'STRING', 'mode': 'REQUIRED'
-            }, {
-                'name': 'FIELD_2', 'type': 'STRING', 'mode': 'REQUIRED'
-            }]
+            'fields': [
+                {'name': 'ACNO', 'type': 'STRING', 'mode': 'NULLABLE'},
+                {'name': 'FIELD_1', 'type': 'STRING', 'mode': 'NULLABLE'},
+                {'name': 'FIELD_2', 'type': 'STRING', 'mode': 'NULLABLE'},
+                {'name': 'FIELD_3', 'type': 'STRING', 'mode': 'NULLABLE'},
+                {'name': 'FIELD_4', 'type': 'STRING', 'mode': 'NULLABLE'},
+                {'name': 'FIELD_5', 'type': 'STRING', 'mode': 'NULLABLE'},
+                {'name': 'FIELD_6', 'type': 'STRING', 'mode': 'NULLABLE'},
+                {'name': 'FIELD_7', 'type': 'STRING', 'mode': 'NULLABLE'},
+                {'name': 'FIELD_8', 'type': 'STRING', 'mode': 'NULLABLE'},
+                {'name': 'FIELD_9', 'type': 'STRING', 'mode': 'NULLABLE'},
+                {'name': 'FIELD_10', 'type': 'STRING', 'mode': 'NULLABLE'},
+            ]
         }
 
         test_pipeline | beam.io.WriteToBigQuery(table_spec,schema=table_schema,write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE, create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED)
