@@ -44,5 +44,6 @@ with beam.Pipeline(options=options) as p:
     max_temperatures = (
         p
         | 'ReadTable' >> beam.io.Read(beam.io.BigQuerySource(table_spec)))
-    max_temperatures | 'WriteTable' >> beam.io.WriteToBigQuery(table_spec, schema=table_schema,write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED)
+
+max_temperatures | 'WriteTable' >> beam.io.WriteToBigQuery(table_spec, schema=table_schema,write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED)
 
