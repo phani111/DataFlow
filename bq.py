@@ -12,15 +12,6 @@ import argparse
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-table_spec = bigquery.TableReference(
-    projectId='mvp-project-273913',
-    datasetId='michael',
-    tableId='account_id_schema_480W')
-
-output_spec = bigquery.TableReference(
-    projectId='mvp-project-273913',
-    datasetId='michael',
-    tableId='yesyes')
 
 class Join(beam.PTransform):
     """Composite Transform to implement left/right/inner/outer sql-like joins on
@@ -161,8 +152,8 @@ def run():
     parser.add_argument('--runner', default='DataflowRunner')
     parser.add_argument('--datasetid', default='michael')
     parser.add_argument('--output',required=False,default='gs://dataflow_s/RPM/account_id_schema_output.avro',help='Output file to write results to.')
-    parser.add_argument('--input',default='account_id_schema_960W',help='input file to write results to.')
-    parser.add_argument('--output_table', default='account_id_schema_new',
+    parser.add_argument('--input',default='account_id_schema_480W',help='input file to write results to.')
+    parser.add_argument('--output_table', default='account_id_schema_join',
                         help='input file to write results to.')
     # Parse arguments from the command line.
     # known_args, pipeline_args = parser.parse_known_args(argv)
@@ -184,6 +175,12 @@ def run():
         projectId=args.project,
         datasetId=args.datasetid,
         tableId=args.input)
+
+
+    output_spec = bigquery.TableReference(
+        projectId=args.project,
+        datasetId=args.datasetid,
+        tableId=args.output_table)
 
     table_schema = {
         'fields': [
