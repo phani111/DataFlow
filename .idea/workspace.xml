@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3ceddc5-345d-4d8c-897a-72aebdee18cd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bq.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataflow-bq.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataflow-bq.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bq.py" beforeDir="false" afterPath="$PROJECT_DIR$/bq.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,8 +28,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/dataflow-bq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="30" selection-start-line="30" selection-end-line="35" selection-end-column="52" />
+            <state relative-caret-position="483">
+              <caret line="265" selection-start-line="265" selection-end-line="273" selection-end-column="9" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -41,8 +40,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bq.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+            <state relative-caret-position="627">
+              <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
               <folding>
                 <element signature="e#0#56#0" expanded="true" />
               </folding>
@@ -80,8 +79,8 @@
       <find>gs://zz_michael/dataflow_s/RPM/account_id_schema_test.avro</find>
       <find>test_pipeline</find>
       <find>options</find>
-      <find>left join</find>
       <find>table_spec</find>
+      <find>left join</find>
     </findStrings>
     <replaceStrings>
       <replace>mvp-project</replace>
@@ -111,11 +110,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-99" />
-    <option name="y" value="23" />
-    <option name="width" value="1440" />
-    <option name="height" value="877" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="y" value="146" />
+    <option name="width" value="976" />
+    <option name="height" value="754" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -324,7 +322,7 @@
       <workItem from="1601361278287" duration="4938000" />
       <workItem from="1601446344630" duration="3334000" />
       <workItem from="1601450939768" duration="220000" />
-      <workItem from="1601473244215" duration="6877000" />
+      <workItem from="1601473244215" duration="7577000" />
     </task>
     <task id="LOCAL-00001" summary="updated dataflow- mvp">
       <created>1601032266288</created>
@@ -480,14 +478,21 @@
       <option name="project" value="LOCAL" />
       <updated>1601509961540</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="updated dataflow- mvp">
+      <created>1601512341826</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1601512341826</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46130000" />
+    <option name="totallyTimeSpent" value="46830000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-99" y="23" width="1440" height="877" extended-state="0" />
+    <frame x="0" y="23" width="1440" height="877" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17167382" />
@@ -675,8 +680,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/dataflow-bq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="30" selection-start-line="30" selection-end-line="35" selection-end-column="52" />
+        <state relative-caret-position="483">
+          <caret line="265" selection-start-line="265" selection-end-line="273" selection-end-column="9" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -685,8 +690,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="30" lean-forward="true" selection-start-line="30" selection-end-line="30" />
+        <state relative-caret-position="627">
+          <caret line="48" lean-forward="true" selection-start-line="48" selection-end-line="48" />
           <folding>
             <element signature="e#0#56#0" expanded="true" />
           </folding>
