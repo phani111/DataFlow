@@ -235,8 +235,8 @@ def run(argv=None):
     with beam.Pipeline(options=options) as p:
         left_pcol_name = 'p1'
         file = p | 'read_source' >> beam.io.ReadFromAvro(args.input)
-        p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"]})
-        p2 = file | beam.Map(lambda x: {'ACNO': x['ACNO'], 'FIELD_2': x["FIELD_2"]})
+        p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"],'FIELD_2':x["FIELD_2"],'FIELD_3':x["FIELD_3"],'FIELD_4':x["FIELD_4"],'FIELD_5':x["FIELD_5"],'FIELD_6':x["FIELD_6"],'FIELD_7':x["FIELD_7"],'FIELD_8':x["FIELD_8"],'FIELD_9':x["FIELD_9"],'FIELD_10':x["FIELD_10"]})
+        p2 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"],'FIELD_2':x["FIELD_2"],'FIELD_3':x["FIELD_3"],'FIELD_4':x["FIELD_4"],'FIELD_5':x["FIELD_5"],'FIELD_6':x["FIELD_6"],'FIELD_7':x["FIELD_7"],'FIELD_8':x["FIELD_8"],'FIELD_9':x["FIELD_9"],'FIELD_10':x["FIELD_10"]})
 
         # P1_1 = p1 | "write" >> beam.io.WriteToText('./data.csv')
         # P2_2 = p2 | "write2" >> beam.io.WriteToText('./data2.csv')
