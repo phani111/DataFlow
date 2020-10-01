@@ -175,7 +175,7 @@ class UnnestOuterJoin(beam.DoFn):
 def run(argv=None):
     """Main entry point"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--project', default='mvp-project-273913',type=str, required=False, help='project')
+    parser.add_argument('--project', default='mvp-project-273913', type=str, required=False, help='project')
     parser.add_argument('--job_name', default='rpm', type=str)
     parser.add_argument('--worker_node', default='n1-standard-4')
     parser.add_argument('--temp_location', default='gs://zz_michael/dataflow_s/tmp')
@@ -188,16 +188,20 @@ def run(argv=None):
         # default='gs://dataflow-samples/shakespeare/kinglear.txt',
         default='10',  # gsutil cp gs://dataflow-samples/shakespeare/kinglear.txt
         help='Number of records to be generate')
-    parser.add_argument('--output',required=False,default='gs://zz_michael/dataflow_s/RPM/output/account_id_schema_output.avro',help='Output file to write results to.')
-    parser.add_argument('--input',default='gs://zz_michael/dataflow_s/RPM/account_id_schema_960W.avro',help='input file to write results to.')
+    parser.add_argument('--output', required=False,
+                        default='gs://zz_michael/dataflow_s/RPM/output/account_id_schema_output.avro',
+                        help='Output file to write results to.')
+    parser.add_argument('--input', default='gs://zz_michael/dataflow_s/RPM/account_id_schema_960W.avro',
+                        help='input file to write results to.')
     # Parse arguments from the command line.
     # known_args, pipeline_args = parser.parse_known_args(argv)
     args = parser.parse_args()
 
-    dataflow_options = ['--project=%s'%(args.project), '--job_name=%s'%(args.job_name), '--temp_location=%s'%(args.temp_location),'--worker_machine_type=%s'%(args.worker_node),
-                        '--region=%s'%(args.region)]
+    dataflow_options = ['--project=%s' % (args.project), '--job_name=%s' % (args.job_name),
+                        '--temp_location=%s' % (args.temp_location), '--worker_machine_type=%s' % (args.worker_node),
+                        '--region=%s' % (args.region)]
 
-    dataflow_options.append('--staging_location=%s'%(args.staging_location))
+    dataflow_options.append('--staging_location=%s' % (args.staging_location))
     options = PipelineOptions(dataflow_options)
     gcloud_options = options.view_as(GoogleCloudOptions)
 
