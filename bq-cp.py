@@ -13,17 +13,17 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 table_spec = bigquery.TableReference(
-    projectId='mvp-project-273913',
-    datasetId='michael',
-    tableId='account_id_schema_480W')
+    projectId='query-11',
+    datasetId='rpm',
+    tableId='account_id_schema_new')
 
 output_spec = bigquery.TableReference(
-    projectId='mvp-project-273913',
-    datasetId='michael',
+    projectId='query-11',
+    datasetId='rpm',
     tableId='yesyes')
 
-dataflow_options = ['--project=mvp-project-273913','--job_name=gcp','--temp_location=gs://zz_michael/dataflow_s/tmp','--region=asia-east1']
-dataflow_options.append('--staging_location=gs://zz_michael/dataflow_s/stage')
+dataflow_options = ['--project=query-11','--job_name=amaz','--temp_location=gs://dataflow_s/tmp','--region=us-central1']
+dataflow_options.append('--staging_location=gs://dataflow_s/stage')
 options = PipelineOptions(dataflow_options)
 gcloud_options = options.view_as(GoogleCloudOptions)
 
