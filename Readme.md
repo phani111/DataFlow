@@ -17,23 +17,16 @@ source env/bin/activate
 pip3 install --quiet apache-beam[gcp]
 gsutil mb gs://mvp-project-273913
 gsutil cp gs://zz_michael/dataflow_s/dataflow-mvp.py .
-python dataflow-mvp.py 
 source env/bin/activate
 ```
 
 4. run dataflow-mvp.py
 ```linux
-python dataflow-mvp.py --job_name rpm-960w-n16 --worker_node n1-s
-tandard-16 --input gs://zz_michael/dataflow_s/RPM/account_id_schema_960W.avro
+python dataflow-mvp.py --job_name dl-960w-n16 --worker_node n1-standard-16
 ```
 worker_node is worker machine type, for example n1-standard-8,n1-standard-4
 input is the source file
 
-
-5. if want to write out to biguqery, run bq.py
-```linux
-python bq.py --job_name rpm-960w-n16 --worker_node n1-standard-16
-```
 
 
 Record   | output | vm              | Elapsed time 

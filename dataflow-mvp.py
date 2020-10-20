@@ -16,17 +16,18 @@ from fastavro import parse_schema
 import logging
 import apache_beam as beam
 from apache_beam.options.pipeline_options import PipelineOptions
-# from apache_beam.options.pipeline_options import SetupOptions
 from apache_beam.options.pipeline_options import GoogleCloudOptions
 from apache_beam.options.pipeline_options import StandardOptions
-# from apache_beam.io.textio import ReadFromText, WriteToText
+from apache_beam.io.gcp.internal.clients import bigquery
+
+table_spec = bigquery.TableReference(
+    projectId='mvp-project-273913',
+    datasetId='rpm',
+    tableId='newtable')
 
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
-
-
-
 
 dataflow_options = ['--project=mvp-project-273913','--job_name=gcp','--temp_location=gs://zz_michael/dataflow_s/tmp','--region=asia-east1']
 dataflow_options.append('--staging_location=gs://zz_michael/dataflow_s/stage')
@@ -35,13 +36,13 @@ gcloud_options = options.view_as(GoogleCloudOptions)
 
 options.view_as(StandardOptions).runner = "dataflow"
 
-
-input_filename = "gs://zz_michael/dataflow_s/RPM/account_id_schema_new.avro"
-output_filename = "gs://zz_michael/dataflow_s/RPM/account_id_schema_output.avro"
-
-
-def printfn(elem):
-    print(elem)
+def cycle_dlqn(x):
+    if x['FIELD_1'] > 0:
+        x['NUM_OF_MTHS_PD_30'] = int(x['NUM_OF_MTHS_PD_30'])
+        x['NUM_OF_MTHS_PD_30'] += 1
+    else:
+        x['NUM_OF_MTHS_PD_30'] = 0
+    return x
 
 class Join(beam.PTransform):
     """Composite Transform to implement left/right/inner/outer sql-like joins on
@@ -171,6 +172,21 @@ class UnnestOuterJoin(beam.DoFn):
             for join_dictionary in join_dictionaries:
                 yield join_dictionary
 
+table_schema = {
+    'fields': [
+        {"name": "ACNO", "type":'INTEGER', 'mode': 'NULLABLE'},
+        {"name": "NUM_OF_MTHS_PD_30", "type":'INTEGER', 'mode': 'NULLABLE'},
+        {"name": "FIELD_1", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_2", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_3", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_4", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_5", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_6", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_7", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_8", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_9", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_10", "type":'FLOAT', 'mode': 'NULLABLE'}]
+}
 
 def run(argv=None):
     """Main entry point"""
@@ -179,20 +195,16 @@ def run(argv=None):
     parser.add_argument('--job_name', default='rpm', type=str)
     parser.add_argument('--worker_node', default='n1-standard-4')
     parser.add_argument('--temp_location', default='gs://zz_michael/dataflow_s/tmp')
+    parser.add_argument('--location', default='gcs')
     parser.add_argument('--region', default='asia-east1')
     parser.add_argument('--staging_location', default='gs://zz_michael/dataflow_s/stage')
-    parser.add_argument(
-        '--records',
-        dest='records',
-        type=int,
-        # default='gs://dataflow-samples/shakespeare/kinglear.txt',
-        default='10',  # gsutil cp gs://dataflow-samples/shakespeare/kinglear.txt
-        help='Number of records to be generate')
     parser.add_argument('--output', required=False,
                         default='gs://zz_michael/dataflow_s/RPM/output/account_id_schema_output.avro',
                         help='Output file to write results to.')
-    parser.add_argument('--input', default='gs://zz_michael/dataflow_s/RPM/account_id_schema_960W.avro',
+    parser.add_argument('--input', default='gs://zz_michael/dataflow_s/RPM/Curr_account.avro',
                         help='input file to write results to.')
+    parser.add_argument('--input2', default='gs://zz_michael/dataflow_s/RPM/Prev_account.avro',
+                        help='input file to write results to.')                   
     # Parse arguments from the command line.
     # known_args, pipeline_args = parser.parse_known_args(argv)
     args = parser.parse_args()
@@ -207,17 +219,13 @@ def run(argv=None):
 
     options.view_as(StandardOptions).runner = "dataflow"
 
-    input_filename = args.input
-    output_filename = args.output
-
-
-
 
     SCHEMA = {"namespace": "example.avro",
               "type": "record",
               "name": "User",
               "fields": [
                   {"name": "ACNO", "type": ["null", {"logicalType": "char", "type": "string", "maxLength": 20}]},
+                  {"name": "NUM_OF_MTHS_PD_30", "type": ["null",'int','string']},
                   {"name": "FIELD_1", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
                   {"name": "FIELD_2", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
                   {"name": "FIELD_3", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
@@ -231,16 +239,12 @@ def run(argv=None):
               ]
               }
 
-    rec_cnt = args.records
     with beam.Pipeline(options=options) as p:
         left_pcol_name = 'p1'
-        file = p | 'read_source' >> beam.io.ReadFromAvro(args.input)
-        p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"]})
-        p2 = file | beam.Map(lambda x: {'ACNO': x['ACNO'], 'FIELD_2': x["FIELD_2"]})
-
-        # P1_1 = p1 | "write" >> beam.io.WriteToText('./data.csv')
-        # P2_2 = p2 | "write2" >> beam.io.WriteToText('./data2.csv')
-
+        Curr_Month = p | 'read_Curr_Month' >> beam.io.ReadFromAvro(args.input) 
+        Prev_Month = p | 'read_Prev_Month' >> beam.io.ReadFromAvro(args.input2)
+        p1 = Curr_Month | 'select fields from Curr_Month' >> beam.Filter(lambda x: int(x['NUM_OF_MTHS_PD_30']) >= 0) 
+        p2 = Prev_Month | 'select fields2 from Prev_Month' >> beam.Filter(lambda x: int(x['NUM_OF_MTHS_PD_30']) >= 0) 
         right_pcol_name = 'p2'
 
         join_keys = {
@@ -253,23 +257,34 @@ def run(argv=None):
                 # 't2_col_B'
             ]}
 
-        pipelines_dictionary = {left_pcol_name: p1, right_pcol_name: p2}
-        test_pipeline = pipelines_dictionary | 'left join' >> Join(left_pcol_name=left_pcol_name, left_pcol=p1,
+        joinkey_dict = {left_pcol_name: p1, right_pcol_name: p2}
+        joined_data = joinkey_dict | 'left join' >> Join(left_pcol_name=left_pcol_name, left_pcol=p1,
                                                                    right_pcol_name=right_pcol_name, right_pcol=p2,
-                                                                   join_type='left', join_keys=join_keys)
-        print(type(test_pipeline))
+                                                                   join_type='left', join_keys=join_keys) 
+        derived_result = joined_data | 'Transform (add 1 to fileld)' >> beam.Map(cycle_dlqn)                                       
+        print(type(joined_data))
+        compressIdc = True
+        use_fastavro = True
+
 
         compressIdc = True
         use_fastavro = True
-        #
 
-        test_pipeline | 'write_fastavro' >> WriteToAvro(
-            args.output,
-            parse_schema(SCHEMA),
-            use_fastavro=use_fastavro,
-            file_name_suffix='.avro',
-            codec=('deflate' if compressIdc else 'null'),
-        )
+        if args.location =="bigquery":
+            derived_result | beam.io.WriteToBigQuery(
+            table_spec,
+            schema=table_schema,
+            write_disposition=beam.io.BigQueryDisposition.WRITE_TRUNCATE,
+            create_disposition=beam.io.BigQueryDisposition.CREATE_IF_NEEDED) 
+        else:
+            derived_result | 'Write out Stage' >> WriteToAvro(
+                args.output,
+                parse_schema(SCHEMA),
+                use_fastavro=use_fastavro,
+                file_name_suffix='.avro',
+                codec=('deflate' if compressIdc else 'null'),
+            )
+
     result = p.run()
     result.wait_until_finish()
 

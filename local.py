@@ -1,7 +1,6 @@
 import apache_beam as beam
 import argparse
 from apache_beam.options.pipeline_options import PipelineOptions, SetupOptions, GoogleCloudOptions
-
 from join import Join
 import random
 from apache_beam.io.avroio import WriteToAvro
@@ -15,11 +14,13 @@ from fastavro import parse_schema
 import json
 import logging
 
-
-def printfn(elem):
-    print(elem)
-
-
+def add_one(x):
+    if int(x['NUM_OF_MTHS_PD_30']) >= 1:
+        x['NUM_OF_MTHS_PD_30'] = int(x['NUM_OF_MTHS_PD_30'])
+        x['NUM_OF_MTHS_PD_30'] += 1
+    else:
+        x['NUM_OF_MTHS_PD_30'] = 0
+    return x
 def run(argv=None):
     """Main entry point"""
     parser = argparse.ArgumentParser()
@@ -60,6 +61,7 @@ def run(argv=None):
               "name": "User",
               "fields": [
                   {"name": "ACNO", "type": ["null", {"logicalType": "char", "type": "string", "maxLength": 20}]},
+                  {"name": "NUM_OF_MTHS_PD_30", "type": ["null",'int','string']},
                   {"name": "FIELD_1", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
                   {"name": "FIELD_2", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
                   {"name": "FIELD_3", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
@@ -77,10 +79,10 @@ def run(argv=None):
     rec_cnt = known_args.records
     with beam.Pipeline(options=pipeline_options) as p:
         left_pcol_name = 'p1'
-        file = p | 'read_source' >> beam.io.ReadFromAvro("./data/account_id_schema_new.avro")
-        p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"]})
-        p2 = file | beam.Map(lambda x: {'ACNO': x['ACNO'], 'FIELD_2': x["FIELD_2"]})
-
+        file = p | 'read_source' >> beam.io.ReadFromAvro("./data/Curr_account.avro") | beam.Distinct()
+        file2 = p | 'read_source2' >> beam.io.ReadFromAvro("./data/Prev_account.avro")
+        p1 = file | 'filter fields' >> beam.Filter(lambda x: int(x['NUM_OF_MTHS_PD_30']) >= 0) 
+        p2 = file2 | 'filter fields2' >> beam.Filter(lambda x: int(x['NUM_OF_MTHS_PD_30']) >= 0) 
         # P1_1 = p1 | "write" >> beam.io.WriteToText('./data.csv')
         # P2_2 = p2 | "write2" >> beam.io.WriteToText('./data2.csv')
 
@@ -99,10 +101,9 @@ def run(argv=None):
         pipelines_dictionary = {left_pcol_name: p1, right_pcol_name: p2}
         test_pipeline = pipelines_dictionary | 'left join' >> Join(left_pcol_name=left_pcol_name, left_pcol=p1,
                                                                    right_pcol_name=right_pcol_name, right_pcol=p2,
-                                                                   join_type='left', join_keys=join_keys)
+                                                                   join_type='left', join_keys=join_keys) 
+        test_pipeline | 'add 1 to NUM_OF_MTHS_PD_30' >> beam.Map(add_one) | "write4" >> beam.io.WriteToText('./data4.csv')                                        
         print(type(test_pipeline))
-        test_pipeline | "print" >> beam.io.WriteToText('./test.csv')
-
         compressIdc = True
         use_fastavro = True
         #

@@ -28,16 +28,16 @@ logger = logging.getLogger(__name__)
 
 
 
-dataflow_options = ['--project=query-11','--job_name=amaz','--temp_location=gs://dataflow_s/tmp','--region=us-central1']
-dataflow_options.append('--staging_location=gs://dataflow_s/stage')
+dataflow_options = ['--project=mvp-project-273913','--job_name=gcp','--temp_location=gs://zz_michael/dataflow_s/tmp','--region=asia-east1']
+dataflow_options.append('--staging_location=gs://zz_michael/dataflow_s/stage')
 options = PipelineOptions(dataflow_options)
 gcloud_options = options.view_as(GoogleCloudOptions)
 
 options.view_as(StandardOptions).runner = "dataflow"
 
 
-input_filename = "gs://dataflow_s/RPM/account_id_schema_new.avro"
-output_filename = "gs://dataflow_s/RPM/account_id_schema_output.avro"
+input_filename = "gs://zz_michael/dataflow_s/RPM/account_id_schema_new.avro"
+output_filename = "gs://zz_michael/dataflow_s/RPM/account_id_schema_output.avro"
 
 
 def printfn(elem):
@@ -175,12 +175,12 @@ class UnnestOuterJoin(beam.DoFn):
 def run(argv=None):
     """Main entry point"""
     parser = argparse.ArgumentParser()
-    parser.add_argument('--project', default='query-11',type=str, required=False, help='project')
-    parser.add_argument('--job_name', default='haha', type=str)
-    parser.add_argument('--temp_location', default='gs://dataflow_s/tmp')
-    parser.add_argument('--region', default='us-central1')
-    parser.add_argument('--staging_location', default='gs://dataflow_s/stage')
-    parser.add_argument('--runner', default='DataflowRunner')
+    parser.add_argument('--project', default='mvp-project-273913', type=str, required=False, help='project')
+    parser.add_argument('--job_name', default='rpm', type=str)
+    parser.add_argument('--worker_node', default='n1-standard-4')
+    parser.add_argument('--temp_location', default='gs://zz_michael/dataflow_s/tmp')
+    parser.add_argument('--region', default='asia-east1')
+    parser.add_argument('--staging_location', default='gs://zz_michael/dataflow_s/stage')
     parser.add_argument(
         '--records',
         dest='records',
@@ -188,21 +188,23 @@ def run(argv=None):
         # default='gs://dataflow-samples/shakespeare/kinglear.txt',
         default='10',  # gsutil cp gs://dataflow-samples/shakespeare/kinglear.txt
         help='Number of records to be generate')
-    parser.add_argument('--output',required=False,default='gs://dataflow_s/RPM/account_id_schema_output.avro',help='Output file to write results to.')
-    parser.add_argument('--input',default='gs://dataflow_s/RPM/account_id_schema_new.avro',help='input file to write results to.')
-    parser.add_argument('--output_table', default='gs://dataflow_s/RPM/account_id_schema_new.avro',
+    parser.add_argument('--output', required=False,
+                        default='gs://zz_michael/dataflow_s/RPM/output/account_id_schema_output.avro',
+                        help='Output file to write results to.')
+    parser.add_argument('--input', default='gs://zz_michael/dataflow_s/RPM/account_id_schema_960W.avro',
                         help='input file to write results to.')
     # Parse arguments from the command line.
     # known_args, pipeline_args = parser.parse_known_args(argv)
     args = parser.parse_args()
 
-    dataflow_options = ['--project=%s'%(args.project), '--job_name=%s'%(args.job_name), '--temp_location=%s'%(args.temp_location),'--runner=%s'%(args.runner),
-                        '--region=%s'%(args.region)]
+    dataflow_options = ['--project=%s' % (args.project), '--job_name=%s' % (args.job_name),
+                        '--temp_location=%s' % (args.temp_location), '--worker_machine_type=%s' % (args.worker_node),
+                        '--region=%s' % (args.region)]
 
-    dataflow_options.append('--staging_location=%s'%(args.staging_location))
+    dataflow_options.append('--staging_location=%s' % (args.staging_location))
     options = PipelineOptions(dataflow_options)
     gcloud_options = options.view_as(GoogleCloudOptions)
-    #
+
     options.view_as(StandardOptions).runner = "dataflow"
 
     input_filename = args.input
@@ -217,16 +219,23 @@ def run(argv=None):
               "fields": [
                   {"name": "ACNO", "type": ["null", {"logicalType": "char", "type": "string", "maxLength": 20}]},
                   {"name": "FIELD_1", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
-                  {"name": "FIELD_2", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]}
-
+                  {"name": "FIELD_2", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_3", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_4", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_5", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_6", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_7", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_8", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_9", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]},
+                  {"name": "FIELD_10", "type": ["null", {"logicalType": "char", "type": "float", "maxLength": 20}]}
               ]
               }
 
     rec_cnt = args.records
     with beam.Pipeline(options=options) as p:
         left_pcol_name = 'p1'
-        file = p | 'read_source' >> beam.io.ReadFromAvro('gs://dataflow_s/RPM/account_id_schema_new.avro')
-        p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"]}) 
+        file = p | 'read_source' >> beam.io.ReadFromAvro(args.input)
+        p1 = file | beam.Map(lambda x: {'ACNO':x['ACNO'],'FIELD_1':x["FIELD_1"]})
         p2 = file | beam.Map(lambda x: {'ACNO': x['ACNO'], 'FIELD_2': x["FIELD_2"]})
 
         # P1_1 = p1 | "write" >> beam.io.WriteToText('./data.csv')
