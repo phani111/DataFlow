@@ -172,21 +172,6 @@ class UnnestOuterJoin(beam.DoFn):
             for join_dictionary in join_dictionaries:
                 yield join_dictionary
 
-table_schema = {
-    'fields': [
-        {"name": "ACNO", "type":'INTEGER', 'mode': 'NULLABLE'},
-        {"name": "NUM_OF_MTHS_PD_30", "type":'INTEGER', 'mode': 'NULLABLE'},
-        {"name": "FIELD_1", "type":'FLOAT', 'mode': 'NULLABLE'},
-        {"name": "FIELD_2", "type":'FLOAT', 'mode': 'NULLABLE'},
-        {"name": "FIELD_3", "type":'FLOAT', 'mode': 'NULLABLE'},
-        {"name": "FIELD_4", "type":'FLOAT', 'mode': 'NULLABLE'},
-        {"name": "FIELD_5", "type":'FLOAT', 'mode': 'NULLABLE'},
-        {"name": "FIELD_6", "type":'FLOAT', 'mode': 'NULLABLE'},
-        {"name": "FIELD_7", "type":'FLOAT', 'mode': 'NULLABLE'},
-        {"name": "FIELD_8", "type":'FLOAT', 'mode': 'NULLABLE'},
-        {"name": "FIELD_9", "type":'FLOAT', 'mode': 'NULLABLE'},
-        {"name": "FIELD_10", "type":'FLOAT', 'mode': 'NULLABLE'}]
-}
 
 def run(argv=None):
     """Main entry point"""
@@ -219,7 +204,21 @@ def run(argv=None):
 
     options.view_as(StandardOptions).runner = "dataflow"
 
-
+    table_schema = {
+    'fields': [
+        {"name": "ACNO", "type":'INTEGER', 'mode': 'NULLABLE'},
+        {"name": "NUM_OF_MTHS_PD_30", "type":'INTEGER', 'mode': 'NULLABLE'},
+        {"name": "FIELD_1", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_2", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_3", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_4", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_5", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_6", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_7", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_8", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_9", "type":'FLOAT', 'mode': 'NULLABLE'},
+        {"name": "FIELD_10", "type":'FLOAT', 'mode': 'NULLABLE'}]
+}
     SCHEMA = {"namespace": "example.avro",
               "type": "record",
               "name": "User",

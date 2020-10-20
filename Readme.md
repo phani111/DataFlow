@@ -22,6 +22,7 @@ source env/bin/activate
 
 4. run dataflow-mvp.py
 ```linux
+gsutil cp gs://zz_michael/dataflow_s/dataflow-mvp.py .
 python dataflow-mvp.py --job_name dl-960w-n16 --worker_node n1-standard-16
 ```
 worker_node is worker machine type, for example n1-standard-8,n1-standard-4
